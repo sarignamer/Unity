@@ -176,7 +176,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Navigation"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""bf09e92a-0ca0-446f-8cf6-a58acca7c369"",
                     ""expectedControlType"": """",
                     ""processors"": """",
@@ -184,7 +184,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Select"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""7597c693-d60e-442d-a869-325e0757a6ed"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

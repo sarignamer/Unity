@@ -62,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   dashTime: 0.1
-  dashSpeed: 20
+  dashSpeed: 100
 --- !u!114 &3438002050595306946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33dbae245331de449fe7d83562d3030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction2: {x: 0, y: 0, z: 0}
   isGrounded: 0
 --- !u!143 &3438002050595306949
 CharacterController:

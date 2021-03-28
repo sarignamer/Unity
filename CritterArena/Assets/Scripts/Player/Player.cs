@@ -50,18 +50,26 @@ public class Player : MonoBehaviour
         return movement.CurrentSpeed;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision other)
     {
-        if ((collision.gameObject.layer != LayerMask.NameToLayer("Ground")) && collision.gameObject != this.gameObject)
+        if ((other.gameObject.layer != LayerMask.NameToLayer("Ground")) && other.gameObject != this.gameObject)
         {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
+            if (other.gameObject.layer == LayerMask.NameToLayer("Players"))
             {
-                Debug.Log(collision.gameObject.name);
                 Vector3 selfPos = new Vector3(transform.position.x, 0, transform.position.z);
-                Vector3 colPos = new Vector3(collision.transform.position.x, 0, collision.transform.position.z);
-                Vector3 dir = (selfPos - colPos).normalized;
-                float force = GetCurrentSpeed() + collision.gameObject.GetComponent<Player>().GetCurrentSpeed();
-                movement.AddKnockback(dir, force);
+                Vector3 colPos = new Vector3(other.transform.position.x, 0, other.transform.position.z);
+                Vector3 forceDir = (selfPos - colPos).normalized;
+                Vector3 selfVelocity = GetComponent<CharacterController>().velocity;
+                Vector3 otherVelocity = other.gameObject.GetComponent<CharacterController>().velocity;
+
+                float force = otherVelocity.magnitude - selfVelocity.magnitude;
+
+                force = force > 0 ? force : force / 4;
+
+                Debug.Log(gameObject.name + " self:" + selfVelocity);
+                Debug.Log(gameObject.name + " other:" + otherVelocity);
+                Debug.Log(gameObject.name + " force:" + force);
+                movement.AddKnockback(forceDir, force);
             }
         }
     }

@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class MovementHandler : MonoBehaviour
 {
     private CharacterController characterController;
+    private Rigidbody rb;
     private Player player;
 
     public float CurrentSpeed { get; private set; }
@@ -28,6 +29,7 @@ public class MovementHandler : MonoBehaviour
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
         player = GetComponent<Player>();
         dashDirection = transform.rotation * Vector3.forward;
         CurrentSpeed = player.moveSpeed;
@@ -51,6 +53,11 @@ public class MovementHandler : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0, angle, 0);
             dashDirection = direction;
+            CurrentSpeed = player.moveSpeed;
+        }
+        else
+        {
+            CurrentSpeed = 0;
         }
 
         if (!characterController.isGrounded)
@@ -93,11 +100,8 @@ public class MovementHandler : MonoBehaviour
 
     public void StartDash()
     {
-        if (characterController.isGrounded)
-        {
-            isDashing = true;
-            StartCoroutine(Dash());
-        }
+        isDashing = true;
+        StartCoroutine(Dash());
     }
 
     private IEnumerator Dash()
